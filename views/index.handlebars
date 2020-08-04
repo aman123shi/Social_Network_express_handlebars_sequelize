@@ -1,0 +1,106 @@
+<div class="container">
+  <br><br><br><br><br><br>
+  <form method="POST" action="/login">
+  <div class="form-group" >
+    <label for="email">Email address:</label>
+    <input type="email" class="form-control" id="email" name="email">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Password:</label>
+    <input type="password" class="form-control" id="pwd" name="password">
+  </div>
+  <button type="submit" class="btn btn-primary form-control">Login</button>
+</form>
+<button type="button" class="btn btn-primary mx-8 w-25" data-toggle="modal" data-target="#myModal">
+  Sign Up
+</button>
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Sign up to faethbook</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form method="POST" action="/signup">
+         <div class="form-group" >
+         <label for="name">Name:</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+  </div>  
+    <div class="form-group" >
+         <label for="email">Email address:</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+  </div>
+  <div class="form-group">
+       <label for="pwd">Password:</label>
+       <input type="password" class="form-control" id="pwd" name="password" required>
+  </div>
+  <button type="submit" class="btn btn-primary form-control">Sign Up</button>
+</form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+<link rel="stylesheet" href="css/bootstrap.min.css" >
+  <script src="js/jquery-3.4.1.min.js" ></script>
+    <script src="js/bootstrap.min.js" ></script>
+{{#section 'jquery'}}
+<script>
+   $("#sf").on("keyup",function(evt){
+    evt.preventDefault();
+    var action = $(this).attr('action');
+    var res=$("#sresult");
+    $.ajax({
+    url:'search',
+    type: 'post',
+    data:$(this).serialize(),
+    success: function(data){
+    if(data.success){
+    res.html('<h2>Thank you!</h2>'+ data.result);
+}   else {
+    res.html('There was a problem.');
+}
+},
+error: function(){
+alert("general maybe ajax syntax");
+}
+});});
+
+</script>
+<script>
+   $("#lgForm").on("submit",function(evt){
+    evt.preventDefault();
+    var action = $(this).attr('action');
+    var res=$("#sresult");
+    $.ajax({
+    url:'login',
+    type: 'post',
+    data:$(this).serialize(),
+    success: function(data){
+    if(data.success){
+    res.html('<h2 class="text-danger">incorrect username or password please try again </h2>');
+}   else {
+        $(location).attr("href","/mainpage");
+}
+},
+error: function(){
+alert("general maybe ajax syntax");
+}
+});});
+
+</script>
+{{/section}}

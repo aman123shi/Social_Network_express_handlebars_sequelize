@@ -1,0 +1,10 @@
+var express = require('express');
+var homeController = require("../controllers/homecontrollers/index");
+var homeActivites = require("../controllers/homecontrollers/homeActivites");
+var router = express.Router();
+router.get("/", homeController.homePage);
+router.get("/login", homeController.renderLoginPage);
+router.post("/login", homeController.login);
+router.post("/post", homeActivites.posting);
+router.post("/signup", homeController.processSignUp);
+module.exports = router;

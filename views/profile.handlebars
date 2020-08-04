@@ -1,0 +1,61 @@
+<div class="container">
+<div style="border: black; margin:25px" id="idof">
+      <img src="/img/pro.jpg" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:300px;height:300px">
+    <p>Amanuel Shiferaw</p>
+</div>
+ <form action="" method="post" id="if">
+     Upload profile picture <input type="file" name="fileupload" id="myfile">
+     <button type="submit"> Upload</button> <br>
+     <div id="prog"></div>
+ </form>
+ {{#if photos}}
+ <div class="container" style="max-height: 400px; max-width:400px">
+  profile pictures <br>
+  {{#each photos as |p|}}
+<img src="{{../id}}/{{p}}" alt="profile pic" style="max-width:auto;max-height:450px" >
+  {{/each}}
+  
+ </div>
+ {{/if}}
+<div>
+<label><b>HomeTown:</b> Bedele</label><br>
+<label><b>School:</b> Bedele prepartory School</label><br>
+<label><b>religion:</b> EndeMude</label><br>
+<label><b>RelationShip:</b> Single</label>
+</div>
+</div>
+<script>
+ var uid ="{{id}}";
+var imgSocket=io("/profile");
+var chunks=[];
+imgSocket.on("imgg-chunk",data=>{
+    chunks.push(data);
+$("#prpic").attr("src","data:image/jpeg;base64,"+window.btoa(chunks));
+});
+imgSocket.on("upload-finished",(data)=>{
+    $("#prog").css("color:green");
+     $("#prog").text("uploading finished"); 
+     $("#idof").append(`
+     <img src="/${uid}/${data.name}" alt="profile pic" style="max-width:400px;max-height:450px" >
+     `);
+});//http://localhost:3000/Screenshot_20200325-160901.png
+var fileChooser = document.getElementById("myfile");
+$("#if").on("submit",(e)=>{  
+    $("#prog").text("uploading ...........")  ;
+    e.preventDefault();
+    if(!fileChooser.files.length)
+         console.log("no image selected");    // return ;
+var firstFile = fileChooser.files[0],
+reader = new FileReader();
+reader.readAsArrayBuffer(firstFile); 
+reader.onloadend= ()=>{
+    console.log("image loading end ........");
+    console.log("the name of the file is "+firstFile.name);
+    imgSocket.emit("upload-image",{
+        name:firstFile.name,
+        data:reader.result,
+        id:uid
+    });   
+}
+});
+</script>

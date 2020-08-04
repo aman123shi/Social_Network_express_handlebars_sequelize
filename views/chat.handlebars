@@ -1,0 +1,45 @@
+<div class="container">
+       <div id="msg-panel">
+            {{#each msg}}
+        <label for="ms">{{sender}}</label>
+          <p id="ms">{{content}}</p>
+        {{/each}}
+       </div>
+<form action="" class="message-form">
+    <p id="mg">
+        <label for="message">Message</label>
+        <textArea class="form-control" id="message" style="width: 550px;"></textArea>
+    </p>
+    <button class="btn btn-primary" type="submit">Send</button>
+</form>
+<script>
+     var sender="{{cuid}}",friendid="{{friendid}}";
+      var socket = io("/message");
+      socket.emit("seen",sender);
+      socket.on("counter++",()=>{
+          var c= $("#mc2").text();
+          console.log(c+" jjjjhj");
+          var newc=parseInt(c)+1;
+          $("#mc2").text(newc);
+      });
+      socket.on("message-sent",(data)=>{
+          console.log("THis message come from the server "+data);
+          $("#msg-panel").append(`
+           <label for="ms">${data.sender}</label>
+          <p id="ms">${data.content}</p>
+          
+          `);
+      });
+$(".message-form").on("submit",(e)=>{
+   e.preventDefault();
+   var mess= $("#message").val();
+   socket.emit("message-send",{content:mess,sender:sender,friendid:friendid});
+   $("#message").val("");
+
+});
+
+
+</script>
+
+
+</div>

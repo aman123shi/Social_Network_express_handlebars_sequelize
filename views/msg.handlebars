@@ -1,0 +1,18 @@
+<div class="container">
+    welcome to This shity site your database id is {{cuid}} <br>
+    <h3>my friends</h3>
+    {{#if noMessage}}
+    <h2 class="display-3">no new message man!!</h2>
+     {{/if}}
+        
+    {{#each friends}} 
+    <form action="/chat" method="POst">
+    <input type="hidden" name="friendid" value="{{id}}">
+    <input type="submit" value="{{name}}" class="btn btn-link">
+    </form>
+    {{/each}}
+</div>
+<script>
+
+
+</script>

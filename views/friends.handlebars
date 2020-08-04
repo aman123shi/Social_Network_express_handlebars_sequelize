@@ -1,0 +1,56 @@
+<div class="container">
+    welcome to This shity site your database id is {{cuid}} <br>
+    <div class="row">
+  <div class="col-sm-4">
+    <h3>my friends</h3>
+    {{#each friends}} 
+    <form action="/chat" method="POst">
+    <input type="hidden" name="friendid" value="{{id}}">
+    <input type="submit" value="{{name}}" class="btn btn-link">
+    </form>
+    {{/each}}
+  </div>
+  <div class="col-sm-4 bg-danger" style="height: 1024px;">Peoples you may know <br>
+      find friends : <br>
+      {{#each newFriends as |nf|}} 
+      <div>
+   <div class="card bg-success" style="max-width: 180px;max-height:150px;margin:15px">
+       <div class="card-body">
+         <img class="card-img-top  rounded-circle" src="img/pro.jpg" alt="Card image">
+       <a href="#" class="text-center" style="color: black;text-align: center;" data-id="{{nf.id}}"><b class="text-center">{{nf.name}}</b></a>
+       <span><button id="add-btn" class="btn btn-primary" data-id="{{nf.id}}">Add friend</button></span>     
+       </div>
+        
+   </div>
+      </div>
+      {{/each}}
+
+ 
+  </div>
+  <div class="col-sm-4 bg-primary">.col-sm-3</div>
+ 
+</div>
+</div>
+<script>
+$("button").on("click",(e)=>{
+  e.preventDefault();
+  $(e.currentTarget).text("Sending.....");
+  console.log("button clicked");
+    $.ajax({
+    url:'friends/sendrequest',
+    type: 'post',
+    data:{friendid:$(e.currentTarget).data("id")},
+    success: function(data){
+    if(data.success){
+    $(e.currentTarget).text("Request SENT");
+}   else {
+    $(e.currentTarget).text("Request SENT Failed");
+}
+},
+error: function(){
+alert("general maybe ajax syntax");
+}
+});
+});
+
+</script>
