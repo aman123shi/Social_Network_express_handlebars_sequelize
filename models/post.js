@@ -16,10 +16,7 @@ module.exports = (sequelize, DataType) => {
                 type: DataType.INTEGER
 
             },
-            uid: {
-                type: DataType.INTEGER
 
-            }
 
 
         }
@@ -28,7 +25,7 @@ module.exports = (sequelize, DataType) => {
     Posts.associate = (models) => {
         Posts.belongsTo(models.Users);
     }
-    Posts.associate = (models) => {
+    Posts.associate2 = (models) => {
         Posts.hasMany(models.Comments);
     }
     return Posts;

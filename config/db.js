@@ -20,6 +20,8 @@ fs.readdirSync(dir).forEach((file) => {
 Object.keys(db.models).forEach(key => {
     if (db.models[key].associate)
         db.models[key].associate(db.models);
+    if (db.models[key].associate2)
+        db.models[key].associate2(db.models);
 });
 
 module.exports = db;

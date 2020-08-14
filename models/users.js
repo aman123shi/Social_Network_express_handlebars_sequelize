@@ -38,7 +38,7 @@ module.exports = (sequelize, DataType) => {
   Users.associate = (models) => {
     Users.hasMany(models.Posts);
   }
-  Users.associate = (models) => {
+  Users.associate2 = (models) => {
     Users.hasOne(models.Profile);
   }
   return Users;

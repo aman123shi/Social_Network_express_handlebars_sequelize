@@ -1,15 +1,46 @@
  <div class="container">
 <div class="container">
-    <form method="POST" action="/post">
-    
-    <div class="form-group" >
-         <label for="name">what's on your mind ?</label>
-         <textArea class="form-control" id="post" style="width: 550px;" name="text" required></textArea> 
-    </div> 
-    <button type="submit text-primary" class=" btn btn-primary">post</button>
+     <label for="name">what's on your mind ?</label>
+     <form method="POST" action="/post">
+          <div class="input-group mb-3">
+         <textArea class="form-control" id="post" style="max-width: 550px;" name="text" required></textArea> 
+        <div class="input-group-append" style="align-content: center;">
+     <button type="submit" class="btn btn-primary" style="margin-left: 20px;max-height:40px">Post</button>
+  </div>
+</div>  
  </form>
  </div>
- <div class="container news-feed">
+ <div class="container news-feed" style="margin: 30px;padding:40px">
+  
+   <label for="" class="name" style="color: blue;">Amanuel Shiferaw</label>
+   <div class="post-text" style="text-align:left; max-width:480px">
+       Lorem ipsum dolor sit amet consectetur adipisicing
+       Elit. Odio quasi voluptates nostrum omnis nobis porro
+       Expedita, vitae, laudantium sunt velit nam veniam tempore 
+       Fugiat nemo, soluta minima corrupti delectus necessitatibus.
+   </div>
+   <div class="post-image" style="margin-bottom: 20px;">
+        <img src="/img/pro.jpg" alt="John Doe" class="mr-3 mt-3 " style="width:300px;height:300px">
+   </div>
+   <div class="add-coment">
+        <form action="" method="post" style="padding: 10px;">  
+                 <div class="input-group mb-3">
+         <textarea name="comment" id="" placeholder="add a comment....." style="max-width: 500px;height:50px" rows="3" class="form-control"></textarea>
+        <div class="input-group-append" style="align-content: center;">
+     <button type="submit" class="btn btn-primary" style="margin-left: 20px;max-height:40px">comment</button>
+  </div>
+</div>        
+        </form>
+   </div>
+   <div id="prev-comments">
+        <a href="#demo" data-toggle="collapse">View Comments </a>
+         <div id="demo" class="collapse">
+             <label for="#comp" style="color: blue;">kebede chane</label>
+             <p id="comp">nice pic dear .........</p>
+              <label for="#comp" style="color: blue;">gete shsashe</label>
+             <p id="comp">way way good good good .........</p>
+         </div>       
+   </div>
 
  </div>
  </div>
