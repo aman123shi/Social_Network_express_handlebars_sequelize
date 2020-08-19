@@ -1,9 +1,13 @@
 const db = require("../../config/db");
-
-function homePage(req, res) {
+const homeActivitiesHelper = require("./homeActivites");
+async function homePage(req, res) {
     if (req.cookies.mysite) {
         if (req.cookies.mysite.logedin == true) {
-            res.render("home");
+            let cuid = req.cookies.mysite.id;
+            res.render("home", {
+                posts: await homeActivitiesHelper.generateNewsFeed(cuid),
+                uid: cuid
+            });
         }
     } else
         res.render("index", {

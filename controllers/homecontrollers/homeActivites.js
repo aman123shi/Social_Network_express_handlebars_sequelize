@@ -7,15 +7,21 @@ function posting(req, res) {
             var post = db.models.Posts;
             var id = req.cookies.mysite.id;
             var content = req.body.text;
+            let filename = null;
+            if (req.file)
+                filename = req.file.filename || "";
+
+
             post.create({
                 text: content,
-                img: "",
+                img: filename,
                 like: 0,
-                uid: id
+                user_id: id,
             }).then(p => {
                 console.log("the user is posted successfully " + p.id);
-                res.send("you have posted succesfully");
+                res.redirect("/");
             });
+            console.log(" the user id @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ " + id);
 
         }
     } else
@@ -81,7 +87,8 @@ async function generateNewsFeed(cuid = 1) {
         };
         postArray.push(pt);
     }
-
+    return postArray;
 }
 //generateNewsFeed();
 module.exports.posting = posting;
+module.exports.generateNewsFeed = generateNewsFeed;

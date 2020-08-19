@@ -1,28 +1,33 @@
  <div class="container">
 <div class="container">
      <label for="name">what's on your mind ?</label>
-     <form method="POST" action="/post">
+     <form method="POST" action="/post" enctype="multipart/form-data">
           <div class="input-group mb-3">
-         <textArea class="form-control" id="post" style="max-width: 550px;" name="text" required></textArea> 
+         <textArea class="form-control" id="post" style="max-width: 550px;" name="text" required></textArea>
         <div class="input-group-append" style="align-content: center;">
      <button type="submit" class="btn btn-primary" style="margin-left: 20px;max-height:40px">Post</button>
   </div>
 </div>  
+<div class="input-group mb-3">
+   <label for="up">
+      <i class="fa fa-file-picture-o" for="up"></i>share picture
+   </label>
+ <input type="file" name="photo" id="up" accept="image/*" class="fa fa-file-picture-o" style="font-size:24px;visibility:hidden" > 
+ </div>
  </form>
  </div>
  <div class="container news-feed" style="margin: 30px;padding:40px">
-  
-   <label for="" class="name" style="color: blue;">Amanuel Shiferaw</label>
+      {{#each posts as |p|}}
+   <label for="" class="name" style="color: blue;">{{owner}}</label> 
    <div class="post-text" style="text-align:left; max-width:480px">
-       Lorem ipsum dolor sit amet consectetur adipisicing
-       Elit. Odio quasi voluptates nostrum omnis nobis porro
-       Expedita, vitae, laudantium sunt velit nam veniam tempore 
-       Fugiat nemo, soluta minima corrupti delectus necessitatibus.
+           {{text}}
    </div>
+   {{#if img}}
    <div class="post-image" style="margin-bottom: 20px;">
-        <img src="/img/pro.jpg" alt="John Doe" class="mr-3 mt-3 " style="width:300px;height:300px">
+        <img src="postpics/{{../uid}}/{{img}}" alt="John Doe" class="mr-3 mt-3 " style="width:300px;height:300px">
    </div>
-   <div class="add-coment">
+   {{/if}} 
+     <div class="add-coment">
         <form action="" method="post" style="padding: 10px;">  
                  <div class="input-group mb-3">
          <textarea name="comment" id="" placeholder="add a comment....." style="max-width: 500px;height:50px" rows="3" class="form-control"></textarea>
@@ -31,16 +36,21 @@
   </div>
 </div>        
         </form>
-   </div>
-   <div id="prev-comments">
+   </div> 
+   {{#if comments}}
+   <div id="prev-comments" style="">
         <a href="#demo" data-toggle="collapse">View Comments </a>
-         <div id="demo" class="collapse">
-             <label for="#comp" style="color: blue;">kebede chane</label>
-             <p id="comp">nice pic dear .........</p>
-              <label for="#comp" style="color: blue;">gete shsashe</label>
-             <p id="comp">way way good good good .........</p>
-         </div>       
-   </div>
+        <div id="demo" class="collapse">
+      {{#each comments}} 
+             <label for="#comp" style="color: blue;">{{owner}}</label>
+             <p id="comp">{{text}}</p>       
+      {{/each}}
+       </div>
+    </div> 
+   {{/if}}
+      {{/each}}
 
  </div>
  </div>
+
+

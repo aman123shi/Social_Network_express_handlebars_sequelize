@@ -23,9 +23,10 @@ const app = express();
 app.engine('handlebars', hba.engine);
 app.set('view engine', 'handlebars');
 app.use(express.static("public"));
+app.use(express.static("uploads"));
 app.use(express.static(__dirname + "/propics"));
 app.use(bodyParser.urlencoded({
-    extended: false
+    extended: true
 }));
 app.use(bodyParser.json());
 app.use(cookieParser("secret"));
