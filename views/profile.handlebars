@@ -1,27 +1,44 @@
 <div class="container">
-<div style="border: black; margin:25px" id="idof">
+    <div class="row">
+<div style="border: black; margin-left:30%" id="idof">
       <img src="/img/pro.jpg" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:300px;height:300px">
     <p>Amanuel Shiferaw</p>
-</div>
- <form action="" method="post" id="if">
+
+ <form action="" method="post" id="if" style="display: block;">
      Upload profile picture <input type="file" name="fileupload" id="myfile">
      <button type="submit"> Upload</button> <br>
      <div id="prog"></div>
  </form>
- {{#if photos}}
- <div class="container" style="max-height: 400px; max-width:400px">
-  profile pictures <br>
-  {{#each photos as |p|}}
-<img src="{{../id}}/{{p}}" alt="profile pic" style="max-width:auto;max-height:450px" >
-  {{/each}}
-  
- </div>
- {{/if}}
-<div>
+
+</div>
+
+    </div>
+    <div class="row">
+        <div>
 <label><b>HomeTown:</b> Bedele</label><br>
 <label><b>School:</b> Bedele prepartory School</label><br>
 <label><b>religion:</b> EndeMude</label><br>
 <label><b>RelationShip:</b> Single</label>
+</div>
+    </div>
+<div class="row" style="overflow:auto;max-height: 500;">
+ {{#if photos}}
+ <label for="#imgc" class="displa" style="text-align: center;margin-left:50%">profile pictures</label>
+ <div class="container1" style="max-height: 400px; max-width:400px;margin:50px;" id="imgc">
+   <br>
+   <div style="">
+  <div class="row" style="display: grid;grid-gap:15px;flex-flow:column;
+  grid-template-columns:repeat(3,1fr);">
+  {{#each photos as |p|}}
+
+<img src="{{../id}}/{{p}}" alt="profile pic" style="max-width:auto;max-height:450px;display:inline-flexbox" >
+ 
+  {{/each}}
+  </div>
+</div>
+  
+ </div>
+ {{/if}}
 </div>
 </div>
 <script>

@@ -7,5 +7,6 @@ router.get("/", homeController.homePage);
 router.get("/login", homeController.renderLoginPage);
 router.post("/login", homeController.login);
 router.post("/post", uploads.uploadPostPhoto.single('photo'), homeActivites.posting);
+router.post("/comment", homeActivites.commenting);
 router.post("/signup", homeController.processSignUp);
 module.exports = router;

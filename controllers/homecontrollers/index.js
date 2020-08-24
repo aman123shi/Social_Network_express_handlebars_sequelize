@@ -6,7 +6,8 @@ async function homePage(req, res) {
             let cuid = req.cookies.mysite.id;
             res.render("home", {
                 posts: await homeActivitiesHelper.generateNewsFeed(cuid),
-                uid: cuid
+                uid: cuid,
+                fullname: "Amanuel Shiferaw"
             });
         }
     } else

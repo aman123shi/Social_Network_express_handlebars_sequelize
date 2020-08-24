@@ -3,4 +3,7 @@ node_modules
 pr.js
 ts.js
 public
+propics
+uploads
+.gitignore
 node_modules

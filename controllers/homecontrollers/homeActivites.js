@@ -14,7 +14,7 @@ function posting(req, res) {
 
             post.create({
                 text: content,
-                img: filename,
+                img: id + "/" + filename,
                 like: 0,
                 user_id: id,
             }).then(p => {
@@ -89,6 +89,32 @@ async function generateNewsFeed(cuid = 1) {
     }
     return postArray;
 }
-//generateNewsFeed();
+//comment function 
+async function commenting(req, res) {
+    if (req.cookies.mysite) {
+        console.log("the post id is---------------------------------- " + req.body.postid);
+        let commentModel = db.models.Comments;
+        let cuid = req.cookies.mysite.id,
+            postid = req.body.postid,
+            commentText = req.body.text;
+        let comt = await commentModel.create({
+            text: commentText,
+            owner: cuid,
+            post_id: postid
+        });
+        if (comt) {
+            res.send({
+                success: true,
+                name: "amanuel"
+            });
+        } else {
+            res.send({
+                success: false
+            });
+        }
+
+    }
+}
+module.exports.commenting = commenting;
 module.exports.posting = posting;
 module.exports.generateNewsFeed = generateNewsFeed;

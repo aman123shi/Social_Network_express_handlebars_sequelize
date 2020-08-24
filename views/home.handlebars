@@ -16,41 +16,80 @@
  </div>
  </form>
  </div>
- <div class="container news-feed" style="margin: 30px;padding:40px">
+ <div class="container news-feed" >
+
       {{#each posts as |p|}}
+      <div class="card1" style="align-content:left ;">
+          <div class="card-header1">
    <label for="" class="name" style="color: blue;">{{owner}}</label> 
+          </div>
+<div class="card-body1" style="border-radius: 0px;">
    <div class="post-text" style="text-align:left; max-width:480px">
            {{text}}
    </div>
    {{#if img}}
-   <div class="post-image" style="margin-bottom: 20px;">
-        <img src="postpics/{{../uid}}/{{img}}" alt="John Doe" class="mr-3 mt-3 " style="width:300px;height:300px">
+   <div class="post-image" style="margin-bottom: 10px;">
+        <img src="postpics/{{img}}" alt="John Doe" class="mr-3 mt-3 " style="max-width:380px;max-height:500px">
    </div>
    {{/if}} 
-     <div class="add-coment">
-        <form action="" method="post" style="padding: 10px;">  
+</div>
+<div class="card-footer1">
+     <div class="add-comment">
+        <form action="/comment" method="post" style="padding: 0px;" class="comment-form" data-id="{{id}}" >  
                  <div class="input-group mb-3">
-         <textarea name="comment" id="" placeholder="add a comment....." style="max-width: 500px;height:50px" rows="3" class="form-control"></textarea>
+         <textarea name="comment"  placeholder="add a comment....." style="max-width: 500px;height:50px" rows="3" class="form-control textcontent"></textarea>
         <div class="input-group-append" style="align-content: center;">
      <button type="submit" class="btn btn-primary" style="margin-left: 20px;max-height:40px">comment</button>
   </div>
 </div>        
         </form>
    </div> 
+    <div id="prev-comments" style="">
+      {{id}} <i class="fa fa-thumbs-o-up text-primary"> like</i>
+        32<a href="#no{{id}}" data-toggle="collapse"><i class="fa fa-comments"> comments</i> </a>
+        <div id="no{{id}}" class="collapse">
    {{#if comments}}
-   <div id="prev-comments" style="">
-        <a href="#demo" data-toggle="collapse">View Comments </a>
-        <div id="demo" class="collapse">
       {{#each comments}} 
              <label for="#comp" style="color: blue;">{{owner}}</label>
              <p id="comp">{{text}}</p>       
       {{/each}}
-       </div>
-    </div> 
    {{/if}}
+   </div>
+    </div>
+     <hr style="border-radius: 10px;color:brown;background-color:coral">
       {{/each}}
-
+     
+      </div>
+      
  </div>
  </div>
-
-
+ </div>
+<script>
+   $(".comment-form").on("submit",e=>{
+      e.preventDefault();
+      var txt= $(e.currentTarget).find(".textcontent").val();
+      $(e.currentTarget).find(".textcontent").val("");
+      var user = "{{fullname}}"
+      console.log(txt);
+      $.ajax({
+    url:'comment',
+    type: 'post',
+    data:{postid:$(e.currentTarget).data("id"),text:txt},
+    success: function(data){
+    if(data.success){
+    $(e.currentTarget).append(`
+    <div>
+    <label for="#comp" style="color: blue;">${user}</label>
+             <p id="comp">${txt}</p>
+    </div>
+    `);
+}   else {
+    $(e.currentTarget).text("Request Accepted failed");
+}
+},
+error: function(){
+alert("general maybe ajax syntax");
+}
+      });
+   });
+</script>
