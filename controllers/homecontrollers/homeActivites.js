@@ -4,9 +4,9 @@ const Op = require("sequelize").Op;
 function posting(req, res) {
     if (req.cookies.mysite) {
         if (req.cookies.mysite.logedin == true) {
-            var post = db.models.Posts;
-            var id = req.cookies.mysite.id;
-            var content = req.body.text;
+            let post = db.models.Posts;
+            let id = req.cookies.mysite.id;
+            let content = req.body.text;
             let filename = null;
             if (req.file)
                 filename = req.file.filename || "";
@@ -115,6 +115,37 @@ async function commenting(req, res) {
 
     }
 }
+async function like(req, res) {
+    if (req.cookies.mysite) {
+        let post = db.models.Posts;
+        let postid = req.body.postid;
+        let likenum = await post.max("like", {
+            where: {
+                id: postid
+            }
+        }) + 1;
+        console.log("the number of like is " + likenum);
+
+        let p = await post.update({
+            like: likenum
+        }, {
+            where: {
+                id: postid
+            }
+        });
+        if (p) {
+            res.send({
+                success: true
+            });
+        } else {
+            res.send({
+                success: false
+            });
+        }
+
+    }
+}
+module.exports.like = like;
 module.exports.commenting = commenting;
 module.exports.posting = posting;
 module.exports.generateNewsFeed = generateNewsFeed;

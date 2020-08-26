@@ -45,8 +45,8 @@
         </form>
    </div> 
     <div id="prev-comments" style="">
-      {{id}} <i class="fa fa-thumbs-o-up text-primary"> like</i>
-        32<a href="#no{{id}}" data-toggle="collapse"><i class="fa fa-comments"> comments</i> </a>
+       <span id="pid{{id}}" >{{like}}</span><a href="" class="like" data-id="{{id}}"> <i class="fa fa-thumbs-o-up text-primary" > like</i></a>
+        <a href="#no{{id}}" data-toggle="collapse"><i class="fa fa-comments"> comments</i> </a>
         <div id="no{{id}}" class="collapse">
    {{#if comments}}
       {{#each comments}} 
@@ -83,6 +83,33 @@
              <p id="comp">${txt}</p>
     </div>
     `);
+}   else {
+    $(e.currentTarget).text("Request Accepted failed");
+}
+},
+error: function(){
+alert("general maybe ajax syntax");
+}
+      });
+   });
+   //like function is going to build 
+   $(".like").on("click",e=>{
+      e.preventDefault();
+      var txt= $(e.currentTarget).off();
+      var postid = $(e.currentTarget).data("id");
+      var user = "{{fullname}}"
+      console.log(txt);
+      $.ajax({
+    url:'like',
+    type: 'post',
+    data:{postid:$(e.currentTarget).data("id")},
+    success: function(data){
+    if(data.success){
+     var counter = $("#pid"+postid);
+     var num = parseInt(counter.text())+1;
+     counter.text(num);
+    $(e.currentTarget).addClass("disabled");
+    console.log("the counter is "+num);
 }   else {
     $(e.currentTarget).text("Request Accepted failed");
 }

@@ -9,9 +9,8 @@
      <button type="submit"> Upload</button> <br>
      <div id="prog"></div>
  </form>
-
 </div>
-
+<p style="text-align: center;margin-left:30%"><a href="/profile/edit">Edit your profile</a></p>
     </div>
     <div class="row">
         <div>
@@ -31,7 +30,7 @@
   grid-template-columns:repeat(3,1fr);">
   {{#each photos as |p|}}
 
-<img src="{{../id}}/{{p}}" alt="profile pic" style="max-width:auto;max-height:450px;display:inline-flexbox" >
+<img src="/{{../id}}/{{p}}" alt="profile pic" style="max-width:auto;max-height:450px;display:inline-flexbox" >
  
   {{/each}}
   </div>
