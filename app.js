@@ -7,42 +7,48 @@ const socketIO = require("socket.io");
 const router = require("./routes/index");
 const socketRouter = require("./routes/socketRoutes");
 db.sequelize.sync().done(() => {
-    console.log("Sequelize database  synced ")
+  console.log("Sequelize database  synced ");
 });
+
+//setting the view engine with layouts and
 const hba = require("express-handlebars").create({
-    defaultLayout: 'mainTemplate',
-    helpers: {
-        section: function (name, options) {
-            if (!this._sections) this._sections = {};
-            this._sections[name] = options.fn(this);
-            return null;
-        }
-    }
+  defaultLayout: "mainTemplate",
+  helpers: {
+    section: function (name, options) {
+      if (!this._sections) this._sections = {};
+      this._sections[name] = options.fn(this);
+      return null;
+    },
+  },
 });
 const app = express();
-app.engine('handlebars', hba.engine);
-app.set('view engine', 'handlebars');
+app.engine("handlebars", hba.engine);
+app.set("view engine", "handlebars");
 app.use(express.static("public"));
 app.use(express.static("uploads"));
 app.use(express.static(__dirname + "/propics"));
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(cookieParser("secret"));
-app.use(session({
+app.use(
+  session({
     secret: "secret",
     resave: false,
     saveUninitialized: false,
     cookie: {
-        maxAge: 40000000
-    }
-}));
+      maxAge: 40000000,
+    },
+  })
+);
 app.use(router);
 
-app.set('port', process.env.PORT || 3000);
-var server = app.listen(app.get('port'), () => {
-    console.log("server stsrted on port  using nodemon " + app.get('port'));
+app.set("port", process.env.PORT || 3000);
+var server = app.listen(app.get("port"), () => {
+  console.log("server started on port  using nodemon " + app.get("port"));
 });
 var io = socketIO(server);
 //passing socket io object to the router
