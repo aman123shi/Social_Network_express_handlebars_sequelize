@@ -1,69 +1,84 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  
-    <meta charset="utf-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="/css/font-awesome.min.css" >
-    <script src="/js/jquery-3.4.1.min.js" ></script>
-    <script src="/js/bootstrap.min.js" ></script>
-    <script src="/socket.io/socket.io.js" ></script>
+  <head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <title>welcome to Faithbook </title>
-</head>
-<body>
-        <nav class="navbar navbar-expand-sm bg-primary navbar-warning " style="background-color: rgb(56, 107, 202);">
-        <a class="navbar-brand" href="/">
-          <img src="/img/fb.jpg" alt="Logo" style="width:45px;"><b style="color: black;">Home</b> 
-        </a>
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link text-dark"  href="/friends">Friends</a>
-          </li>
-           <li class="nav-item active">
-            <a class="nav-link text-dark"  href="/profile">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/notifications" style="color: black;">notifications</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="/contact">Groups</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link  text-dark" href="/messages">Messages<span id="mc2" class="badge badge-danger">1</span></a>
-          </li>
-        </ul>
-        <form class="form-inline" action="" id="navsearch" >
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" name="key" id="sf">
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>
-         <a class="btn text-dark" href="/logout" style="float: right;">Logout <i class="fa fa-sign-out"></i></a>
-         
-         <span style="margin-left: 200px;color:rgb(189, 187, 178)" >{{fullname}}</span>
-      </nav>
-      <div id="sresult" style="color: crimson;"></div>
-<script>
-      var msgf=[];var c=0; 
-var notifSocket = io("/notification"),cuid="{{cuid}}";
-    notifSocket.on("connection",()=>{
-         console.log("connction fired back");     
-       });
-       notifSocket.emit("notify",cuid);
-       notifSocket.on("newMessages",(data)=>{
-                    $("#mc2").text(data); 
-            console.log(data);  
-       });
-       
-</script>
-<div class="row">
-  <div class="col-sm-2 left-side"></div>
-  <div class="col-sm-8 body">
-                  {{{body}}}
-  </div>
-  <div class="col-sm-2 right-side"></div>
-</div>
-                      
-{{{_sections.jquery}}}
-</body>
+  </head>
+  <body>
+    <!-- nav bar starts here -->
+    <nav
+      class="navbar navbar-expand-sm bg-primary navbar-warning"
+      style="background-color: rgb(56, 107, 202);"
+    >
+      <a class="navbar-brand" href="/">
+        <img src="/img/fb.jpg" alt="Logo" style="width:45px;" /><b
+          style="color: black;"
+        >Home</b>
+      </a>
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link text-dark" href="/friends">Friends</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link text-dark" href="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-dark"
+            href="/notifications"
+            style="color: black;"
+          >notifications</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="/contact">Groups</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="/messages">Messages<span
+              id="mc2"
+              class="badge badge-danger"
+            >1</span></a>
+        </li>
+      </ul>
+      <form class="form-inline" action="" id="navsearch">
+        <input
+          class="form-control mr-sm-2"
+          type="text"
+          placeholder="Search"
+          name="key"
+          id="sf"
+        />
+        <button class="btn btn-success" type="submit">Search</button>
+      </form>
+      <a class="btn text-dark" href="/logout" style="float: right;">Logout
+        <i class="fa fa-sign-out"></i></a>
+
+      <span
+        style="margin-left: 200px;color:rgb(189, 187, 178)"
+      >{{fullname}}</span>
+    </nav>
+    <div id="sresult" style="color: crimson;"></div>
+    <script>
+      var msgf=[];var c=0; var notifSocket = io("/notification"),cuid="{{cuid}}";
+      notifSocket.on("connection",()=>{ console.log("connction fired back"); });
+      notifSocket.emit("notify",cuid); notifSocket.on("newMessages",(data)=>{
+      $("#mc2").text(data); console.log(data); });
+
+    </script>
+    <div class="row">
+      <div class="col-sm-2 left-side"></div>
+      <div class="col-sm-8 body">
+        {{{body}}}
+      </div>
+      <div class="col-sm-2 right-side"></div>
+    </div>
+
+    {{{_sections.jquery}}}
+  </body>
 
 </html>
